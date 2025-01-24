@@ -20,12 +20,17 @@ model User {
   profilePictureUrl String?
   teamId            Int?
 
-  authoredTasks   Task[]           @relation("TaskAuthor")
-  assignedTasks   Task[]           @relation("TaskAssignee")
+  //one to many 
+  //one user can author and also assgined mulitple tasks
+  authoredTasks Task[] @relation("TaskAuthor")
+  assignedTasks Task[] @relation("TaskAssignee")
+
   taskAssignments TaskAssignment[]
   attachments     Attachment[]
   comments        Comment[]
-  team            Team?            @relation(fields: [teamId], references: [id])
+
+  // A team can have many users, but a user belongs to one team.
+  team Team? @relation(fields: [teamId], references: [id])
 }
 
 model Team {
@@ -38,12 +43,13 @@ model Team {
 }
 
 model Project {
-  id           Int           @id @default(autoincrement())
-  name         String
-  description  String?
-  startDate    DateTime?
-  endDate      DateTime?
-  tasks        Task[]
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  tasks       Task[]
+
   projectTeams ProjectTeam[]
 }
 
