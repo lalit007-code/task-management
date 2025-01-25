@@ -19,7 +19,7 @@ const getprojects = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (error) {
         res.status(500).json({
-            message: `Error creating project ${error.message}`,
+            message: `Error fetching project ${error.message}`,
         });
     }
 });
